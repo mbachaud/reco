@@ -1,0 +1,17 @@
+# Zero-quota scale/fuzz run: 9 random walkers on the full 24x24 world with a
+# meteor. Exercises the full content and produces a big replay for the viewer.
+seed: 2002
+ticks: 60
+meteor_tick: 50
+content: full
+map: {width: 24, height: 24}
+agents:
+  - {id: a1, role: random}
+  - {id: a2, role: random}
+  - {id: a3, role: random}
+  - {id: a4, role: random}
+  - {id: a5, role: random}
+  - {id: a6, role: random}
+  - {id: a7, role: random}
+  - {id: a8, role: random}
+  - {id: a9, role: random}

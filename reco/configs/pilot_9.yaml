@@ -1,0 +1,31 @@
+# Track A full-content pilot: 4 Claude + 4 Codex (subscriptions) + 1 scripted
+# food-focused provisioner. Zones rotate forest/mountain/plains by roster
+# order; the provisioner holds a plains slot beside the berry bushes.
+seed: 314
+ticks: 60
+meteor_tick: 50
+content: full
+map: {width: 24, height: 24}
+timeout_s: 240
+concurrency:
+  anthropic: 2
+  openai: 2
+agents:
+  - id: a1                                   # forest
+    driver: {type: cli_claude, model: claude-haiku-4-5-20251001}
+  - id: a2                                   # mountain
+    driver: {type: cli_codex, model: gpt-5.6-sol}
+  - id: a3                                   # plains - the camp kitchen
+    driver: {type: mock_scripted, role: provisioner}
+  - id: a4                                   # forest
+    driver: {type: cli_claude, model: claude-haiku-4-5-20251001}
+  - id: a5                                   # mountain
+    driver: {type: cli_codex, model: gpt-5.6-sol}
+  - id: a6                                   # plains
+    driver: {type: cli_claude, model: claude-haiku-4-5-20251001}
+  - id: a7                                   # forest
+    driver: {type: cli_codex, model: gpt-5.6-sol}
+  - id: a8                                   # mountain
+    driver: {type: cli_claude, model: claude-haiku-4-5-20251001}
+  - id: a9                                   # plains
+    driver: {type: cli_codex, model: gpt-5.6-sol}

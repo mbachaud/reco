@@ -1,0 +1,18 @@
+# Pilot acceptance mixed run (Track A after the Antigravity gate verdict):
+# Claude + Codex on subscriptions; the third seat is the scripted meal role
+# until a GEMINI_API_KEY makes Google's Track B seat available.
+# Spawn zones by roster order: a1 forest (wood), a2 mountain (stone), a3 plains (meal).
+seed: 42
+ticks: 10
+content: slice
+timeout_s: 240
+concurrency:
+  anthropic: 1
+  openai: 1
+agents:
+  - id: a1
+    driver: {type: cli_claude, model: claude-haiku-4-5-20251001}
+  - id: a2
+    driver: {type: cli_codex, model: gpt-5.6-sol}
+  - id: a3
+    driver: {type: mock_scripted, role: meal}

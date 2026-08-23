@@ -1,0 +1,12 @@
+# Zero-quota smoke run: scripted decisions pushed through the full
+# render -> respond -> parse -> journal text pipeline.
+seed: 42
+ticks: 12
+content: slice
+agents:
+  - id: a1
+    driver: {type: mock_scripted, role: wood}
+  - id: a2
+    driver: {type: mock_scripted, role: stone}
+  - id: a3
+    driver: {type: mock_scripted, role: meal}

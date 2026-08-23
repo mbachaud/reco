@@ -1,0 +1,54 @@
+# Reco vertical-slice content: T1 only, original dataset (Eco-inspired systems,
+# no Eco data). Enough for the pilot: gather, craft, build, eat, trade, and the
+# cooperative Beacon project.
+schema_version: 1
+name: slice-t1
+
+calories:
+  start: 1000
+  max: 1200
+  decay_per_tick: 10
+  costs:
+    move_per_tile: 5
+    harvest: 20
+    craft: 15
+    build: 25
+
+items:
+  wood: {}
+  stone: {}
+  berries: {food: 100}
+  wood_bundle: {}
+  stone_block: {}
+  cooked_meal: {food: 400}
+
+deposits:
+  trees: {yields: wood, terrain: forest, qty_min: 20, qty_max: 40}
+  stone_outcrop: {yields: stone, terrain: mountain, qty_min: 20, qty_max: 40}
+  berry_bush: {yields: berries, terrain: plains, qty_min: 15, qty_max: 30}
+
+recipes:
+  wood_bundle: {inputs: {wood: 3}, station: null, ticks: 1, output_qty: 1}
+  stone_block: {inputs: {stone: 3}, station: null, ticks: 1, output_qty: 1}
+  cooked_meal: {inputs: {berries: 3}, station: campfire, ticks: 1, output_qty: 1}
+
+buildings:
+  campfire: {materials: {wood: 2, stone: 1}}
+
+project:
+  kind: beacon
+  needs: {wood_bundle: 1, stone_block: 1, cooked_meal: 1}
+
+offers:
+  ttl_ticks: 5
+  max_open_per_agent: 3
+
+chat:
+  max_say_per_tick: 1
+  max_dm_per_tick: 2
+  max_chars: 240
+
+scratchpad_max_chars: 500
+lookup_max_per_tick: 2
+harvest_yield: 1
+move_points: 3

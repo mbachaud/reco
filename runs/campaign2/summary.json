@@ -1,0 +1,23 @@
+{
+  "ticks_committed": 170,
+  "project_complete": false,
+  "complete_tick": null,
+  "meteor": {
+    "impact_tick": 170,
+    "outcome": "impact",
+    "margin": null
+  },
+  "final_state_hash": "5efa867c57bb2d2955b27d9eaf7e72aafefb85a2ce4495149c6c41514be41606",
+  "names": {
+    "a1": "Lark",
+    "a10": "Aspen",
+    "a2": "Juniper",
+    "a3": "Briar",
+    "a4": "Brook",
+    "a5": "Umber",
+    "a6": "Quill",
+    "a7": "Sorrel",
+    "a8": "Kestrel",
+    "a9": "Onyx"
+  }
+}

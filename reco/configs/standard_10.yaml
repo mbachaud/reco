@@ -1,0 +1,32 @@
+# Track B standard benchmark run: 9 agents, 24x24 map, full 4-tier content,
+# meteor at tick 150 of 180. Fill in the roster with your providers; every
+# api_key_env names an environment variable holding the key. Seeded neutral
+# identities; report + replay + viewer come from the run directory.
+#
+#   python -m reco.cli run --config reco/configs/standard_10.yaml --out runs/standard1
+seed: 1001
+ticks: 180
+meteor_tick: 150
+content: full
+map: {width: 24, height: 24}
+timeout_s: 120
+concurrency: {http: 6}
+agents:
+  - id: a1
+    driver: {type: http_openai, base_url: "https://api.anthropic.com/v1", model: claude-sonnet-5, api_key_env: ANTHROPIC_API_KEY}
+  - id: a2
+    driver: {type: http_openai, base_url: "https://api.anthropic.com/v1", model: claude-sonnet-5, api_key_env: ANTHROPIC_API_KEY}
+  - id: a3
+    driver: {type: http_openai, base_url: "https://api.anthropic.com/v1", model: claude-sonnet-5, api_key_env: ANTHROPIC_API_KEY}
+  - id: a4
+    driver: {type: http_openai, base_url: "https://api.openai.com/v1", model: gpt-5.2, api_key_env: OPENAI_API_KEY}
+  - id: a5
+    driver: {type: http_openai, base_url: "https://api.openai.com/v1", model: gpt-5.2, api_key_env: OPENAI_API_KEY}
+  - id: a6
+    driver: {type: http_openai, base_url: "https://api.openai.com/v1", model: gpt-5.2, api_key_env: OPENAI_API_KEY}
+  - id: a7
+    driver: {type: http_openai, base_url: "https://generativelanguage.googleapis.com/v1beta/openai", model: gemini-3-pro, api_key_env: GEMINI_API_KEY}
+  - id: a8
+    driver: {type: http_openai, base_url: "https://generativelanguage.googleapis.com/v1beta/openai", model: gemini-3-pro, api_key_env: GEMINI_API_KEY}
+  - id: a9
+    driver: {type: http_openai, base_url: "https://generativelanguage.googleapis.com/v1beta/openai", model: gemini-3-pro, api_key_env: GEMINI_API_KEY}

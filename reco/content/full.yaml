@@ -1,0 +1,144 @@
+# Reco full content: 4 tech tiers, 10 professions, ~40 original items.
+# T1 hand/campfire -> T2 workshop benches -> T3 machinery -> T4 industry,
+# ending in the Defense Array against the meteor. All numbers original.
+schema_version: 1
+name: full-t4
+
+calories:
+  start: 1000
+  max: 1400
+  decay_per_tick: 10
+  costs: {move_per_tile: 5, harvest: 20, craft: 15, build: 25, study: 10}
+
+professions:
+  farming: {}
+  foraging: {}
+  logging: {}
+  mining: {}
+  cooking: {}
+  carpentry: {}
+  masonry: {}
+  smithing: {}
+  mechanics: {}
+  industry: {}
+
+mastery_cap: 2
+xp: {harvest: 5, craft: 10, per_level: 100, max_level: 5}
+
+items:
+  # raw
+  berries: {food: 100}
+  greens: {food: 80}
+  wood: {}
+  stone: {}
+  clay: {}
+  copper_ore: {}
+  iron_ore: {}
+  coal: {}
+  # farmed & cooked
+  wheat: {}
+  vegetables: {food: 150}
+  bread: {food: 350}
+  cooked_meal: {food: 400}
+  hearty_stew: {food: 600}
+  rations_crate: {}
+  # T2 materials
+  planks: {}
+  handle: {}
+  wood_bundle: {}
+  stone_block: {}
+  bricks: {}
+  mortar: {}
+  charcoal: {}
+  copper_ingot: {}
+  # T3 materials
+  iron_ingot: {}
+  steel_ingot: {}
+  concrete: {}
+  gears: {}
+  mechanisms: {}
+  power_unit: {}
+  # T4 components
+  electronics: {}
+  machine_parts: {}
+  defense_frame: {}
+  guidance_core: {}
+  power_cell: {}
+  # tools
+  stone_axe: {tool: {kind: axe, bonus: 1}}
+  stone_pickaxe: {tool: {kind: pickaxe, bonus: 1}}
+  iron_axe: {tool: {kind: axe, bonus: 2}}
+  iron_pickaxe: {tool: {kind: pickaxe, bonus: 2}}
+
+deposits:
+  berry_bush: {yields: berries, terrain: plains, qty_min: 15, qty_max: 30, profession: foraging}
+  wild_greens: {yields: greens, terrain: plains, qty_min: 12, qty_max: 24, profession: foraging}
+  clay_pit: {yields: clay, terrain: plains, qty_min: 15, qty_max: 30, profession: mining}
+  trees: {yields: wood, terrain: forest, qty_min: 20, qty_max: 40, profession: logging, tool_kind: axe}
+  stone_outcrop: {yields: stone, terrain: mountain, qty_min: 20, qty_max: 40, profession: mining, tool_kind: pickaxe}
+  copper_vein: {yields: copper_ore, terrain: mountain, qty_min: 10, qty_max: 20, profession: mining, requires_tool: pickaxe}
+  iron_vein: {yields: iron_ore, terrain: mountain, qty_min: 10, qty_max: 20, profession: mining, requires_tool: pickaxe}
+  coal_seam: {yields: coal, terrain: mountain, qty_min: 10, qty_max: 20, profession: mining, requires_tool: pickaxe}
+
+recipes:
+  # T1 hand / campfire
+  wood_bundle: {inputs: {wood: 3}, station: null, ticks: 1, output_qty: 1}
+  stone_block: {inputs: {stone: 3}, station: null, ticks: 1, output_qty: 1}
+  stone_axe: {inputs: {wood: 1, stone: 1}, station: null, ticks: 1, output_qty: 1}
+  stone_pickaxe: {inputs: {wood: 1, stone: 2}, station: null, ticks: 1, output_qty: 1}
+  cooked_meal: {inputs: {berries: 3}, station: campfire, ticks: 1, output_qty: 1, profession: cooking, level: 1}
+  charcoal: {inputs: {wood: 2}, station: campfire, ticks: 1, output_qty: 2, profession: smithing, level: 1}
+  # farming
+  wheat: {inputs: {greens: 1}, station: farm_plot, ticks: 2, output_qty: 3, profession: farming, level: 1}
+  vegetables: {inputs: {greens: 1}, station: farm_plot, ticks: 2, output_qty: 3, profession: farming, level: 1}
+  # T2
+  planks: {inputs: {wood: 2}, station: workbench, ticks: 1, output_qty: 4, profession: carpentry, level: 1}
+  handle: {inputs: {planks: 1}, station: workbench, ticks: 1, output_qty: 2, profession: carpentry, level: 1}
+  bricks: {inputs: {clay: 2}, station: mason_bench, ticks: 1, output_qty: 4, profession: masonry, level: 1}
+  mortar: {inputs: {clay: 1, stone: 1}, station: mason_bench, ticks: 1, output_qty: 2, profession: masonry, level: 2}
+  bread: {inputs: {wheat: 2}, station: stove, ticks: 1, output_qty: 2, profession: cooking, level: 2}
+  copper_ingot: {inputs: {copper_ore: 2, charcoal: 1}, station: forge, ticks: 1, output_qty: 1, profession: smithing, level: 1}
+  iron_ingot: {inputs: {iron_ore: 2, charcoal: 1}, station: forge, ticks: 2, output_qty: 1, profession: smithing, level: 2}
+  iron_axe: {inputs: {iron_ingot: 1, handle: 1}, station: forge, ticks: 1, output_qty: 1, profession: smithing, level: 2}
+  iron_pickaxe: {inputs: {iron_ingot: 1, handle: 1}, station: forge, ticks: 1, output_qty: 1, profession: smithing, level: 2}
+  # T3
+  hearty_stew: {inputs: {wheat: 1, vegetables: 1, berries: 1}, station: stove, ticks: 1, output_qty: 2, profession: cooking, level: 3}
+  steel_ingot: {inputs: {iron_ingot: 2, coal: 2}, station: forge, ticks: 3, output_qty: 1, profession: smithing, level: 3}
+  concrete: {inputs: {stone: 2, mortar: 1, coal: 1}, station: kiln, ticks: 2, output_qty: 2, profession: masonry, level: 3}
+  gears: {inputs: {iron_ingot: 1}, station: workshop, ticks: 1, output_qty: 2, profession: mechanics, level: 1}
+  mechanisms: {inputs: {gears: 2, planks: 2}, station: workshop, ticks: 2, output_qty: 1, profession: mechanics, level: 2}
+  power_unit: {inputs: {steel_ingot: 1, gears: 2, copper_ingot: 1}, station: workshop, ticks: 3, output_qty: 1, profession: mechanics, level: 3}
+  # T4
+  electronics: {inputs: {copper_ingot: 2, coal: 1}, station: factory, ticks: 2, output_qty: 1, profession: industry, level: 2}
+  machine_parts: {inputs: {steel_ingot: 1, mechanisms: 1}, station: factory, ticks: 2, output_qty: 1, profession: industry, level: 1}
+  defense_frame: {inputs: {steel_ingot: 2, concrete: 2}, station: factory, ticks: 3, output_qty: 1, profession: industry, level: 3}
+  guidance_core: {inputs: {electronics: 2, mechanisms: 1}, station: factory, ticks: 3, output_qty: 1, profession: industry, level: 3}
+  power_cell: {inputs: {power_unit: 1, copper_ingot: 1}, station: workshop, ticks: 2, output_qty: 1, profession: mechanics, level: 3}
+  rations_crate: {inputs: {hearty_stew: 2, bread: 1}, station: stove, ticks: 1, output_qty: 1, profession: cooking, level: 3}
+
+buildings:
+  campfire: {materials: {wood: 2, stone: 1}}
+  farm_plot: {materials: {wood: 3}}
+  workbench: {materials: {wood: 4, stone: 2}}
+  mason_bench: {materials: {wood: 2, stone: 4}}
+  stove: {materials: {bricks: 4, stone: 2}}
+  forge: {materials: {bricks: 6, stone: 2}}
+  kiln: {materials: {bricks: 6, mortar: 2}}
+  workshop: {materials: {planks: 6, iron_ingot: 2, bricks: 2}}
+  factory: {materials: {concrete: 4, steel_ingot: 2, mechanisms: 2}}
+  shop: {materials: {planks: 4}}
+
+project:
+  kind: defense_array
+  needs: {defense_frame: 2, guidance_core: 1, power_cell: 2, rations_crate: 2}
+  min_contributors: 3
+
+currencies: {max_per_agent: 1}
+claims: {tokens_per_agent: 3, upkeep_every: 25, upkeep_cost: {wood: 1}}
+
+offers: {ttl_ticks: 8, max_open_per_agent: 3}
+chat: {max_say_per_tick: 1, max_dm_per_tick: 2, max_chars: 240}
+scratchpad_max_chars: 500
+lookup_max_per_tick: 4
+harvest_yield: 1
+move_points: 3

@@ -1,0 +1,127 @@
+{
+  "driver": "cli_claude",
+  "n_fixtures": 20,
+  "parse_rate": 1.0,
+  "schema_rate": 1.0,
+  "exact_total": 10,
+  "exact_matched": 9,
+  "exact_rate": 0.9,
+  "timeouts": 0,
+  "retries_used": 0,
+  "leakage": false,
+  "tool_calls_detected": false,
+  "per_fixture": [
+    {
+      "name": "echo_move_harvest",
+      "parse": true,
+      "schema": true,
+      "exact": false
+    },
+    {
+      "name": "eat_berries",
+      "parse": true,
+      "schema": true,
+      "exact": true
+    },
+    {
+      "name": "craft_wood_bundle",
+      "parse": true,
+      "schema": true,
+      "exact": true
+    },
+    {
+      "name": "say_hello",
+      "parse": true,
+      "schema": true,
+      "exact": true
+    },
+    {
+      "name": "dm_brook",
+      "parse": true,
+      "schema": true,
+      "exact": true
+    },
+    {
+      "name": "offer_trade",
+      "parse": true,
+      "schema": true,
+      "exact": true
+    },
+    {
+      "name": "accept_offer",
+      "parse": true,
+      "schema": true,
+      "exact": true
+    },
+    {
+      "name": "contribute_bundle",
+      "parse": true,
+      "schema": true,
+      "exact": true
+    },
+    {
+      "name": "lookup_meal",
+      "parse": true,
+      "schema": true,
+      "exact": true
+    },
+    {
+      "name": "remember_note",
+      "parse": true,
+      "schema": true,
+      "exact": true
+    },
+    {
+      "name": "fresh_spawn",
+      "parse": true,
+      "schema": true
+    },
+    {
+      "name": "mid_gather",
+      "parse": true,
+      "schema": true
+    },
+    {
+      "name": "starving_no_food",
+      "parse": true,
+      "schema": true
+    },
+    {
+      "name": "offer_pending",
+      "parse": true,
+      "schema": true
+    },
+    {
+      "name": "near_complete_project",
+      "parse": true,
+      "schema": true
+    },
+    {
+      "name": "after_rejection",
+      "parse": true,
+      "schema": true
+    },
+    {
+      "name": "after_parse_error",
+      "parse": true,
+      "schema": true
+    },
+    {
+      "name": "chatty",
+      "parse": true,
+      "schema": true
+    },
+    {
+      "name": "holding_materials",
+      "parse": true,
+      "schema": true
+    },
+    {
+      "name": "project_done",
+      "parse": true,
+      "schema": true
+    }
+  ],
+  "failures": [],
+  "passed": true
+}

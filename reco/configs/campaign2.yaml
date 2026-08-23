@@ -1,0 +1,36 @@
+# Campaign 2: the rematch on the fixed engine (starving agents can accept
+# gifts and forage food). Same seed/map/meteor as campaign1, two upgrades:
+# Claude seats move from Haiku 4.5 to Sonnet 5 (narrows the model gap vs
+# gpt-5.6-sol), and a second scripted provisioner joins — campaign1 showed
+# one cook cannot feed eight. Roster position picks the spawn zone (i mod 3:
+# forest/mountain/plains), so both cooks sit at plains anchors near berries.
+seed: 2718
+ticks: 200
+meteor_tick: 170
+content: full
+map: {width: 24, height: 24}
+timeout_s: 300
+concurrency:
+  anthropic: 2
+  openai: 2
+agents:
+  - id: a1                                   # forest
+    driver: {type: cli_claude, model: claude-sonnet-5}
+  - id: a2                                   # mountain
+    driver: {type: cli_codex, model: gpt-5.6-sol}
+  - id: a3                                   # plains - camp kitchen 1
+    driver: {type: mock_scripted, role: provisioner}
+  - id: a4                                   # forest
+    driver: {type: cli_codex, model: gpt-5.6-sol}
+  - id: a5                                   # mountain
+    driver: {type: cli_claude, model: claude-sonnet-5}
+  - id: a6                                   # plains - camp kitchen 2
+    driver: {type: mock_scripted, role: provisioner}
+  - id: a7                                   # forest
+    driver: {type: cli_claude, model: claude-sonnet-5}
+  - id: a8                                   # mountain
+    driver: {type: cli_codex, model: gpt-5.6-sol}
+  - id: a9                                   # plains
+    driver: {type: cli_claude, model: claude-sonnet-5}
+  - id: a10                                  # forest
+    driver: {type: cli_codex, model: gpt-5.6-sol}

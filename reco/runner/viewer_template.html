@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reco Replay</title>
+<style>
+  :root {
+    color-scheme: light;
+    --page:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink-2:#52514e; --muted:#898781;
+    --grid:#e1e0d9; --border:rgba(11,11,11,0.10);
+    --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --s5:#e87ba4; --s6:#008300; --s7:#4a3aa7; --s8:#e34948;
+    --t-plains:#e9e5d3; --t-forest:#d3e2cc; --t-mountain:#dcdcd8; --t-water:#cfe0f0; --t-desert:#eee3c8;
+    --d-trees:#5f8f56; --d-stone:#8a8a84; --d-berry:#a85472;
+    --good:#0ca30c;
+  }
+  :root:not([data-theme="light"]) { }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
+      --grid:#2c2c2a; --border:rgba(255,255,255,0.10);
+      --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --s6:#008300; --s7:#9085e9; --s8:#e66767;
+      --t-plains:#26251f; --t-forest:#212b1e; --t-mountain:#2a2a28; --t-water:#1c2836; --t-desert:#2b2620;
+      --d-trees:#4d7a45; --d-stone:#6f6f68; --d-berry:#8f4763;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
+    --grid:#2c2c2a; --border:rgba(255,255,255,0.10);
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --s6:#008300; --s7:#9085e9; --s8:#e66767;
+    --t-plains:#26251f; --t-forest:#212b1e; --t-mountain:#2a2a28; --t-water:#1c2836; --t-desert:#2b2620;
+    --d-trees:#4d7a45; --d-stone:#6f6f68; --d-berry:#8f4763;
+  }
+  * { box-sizing:border-box; margin:0; }
+  body { background:var(--page); color:var(--ink);
+         font:14px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif; padding:16px; }
+  .top { display:flex; align-items:baseline; gap:14px; margin-bottom:12px; flex-wrap:wrap; }
+  .top h1 { font-size:18px; font-weight:650; }
+  .top .sub { color:var(--ink-2); font-size:13px; }
+  .badge { font-size:12px; font-weight:600; padding:2px 10px; border-radius:999px;
+           border:1px solid var(--border); color:var(--ink-2); }
+  .badge.done { color:var(--good); border-color:var(--good); }
+  .layout { display:grid; grid-template-columns: minmax(320px, 1fr) 340px; gap:14px; }
+  @media (max-width: 860px) { .layout { grid-template-columns: 1fr; } }
+  .panel { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px; }
+  .panel h2 { font-size:12px; font-weight:650; letter-spacing:.04em; text-transform:uppercase;
+              color:var(--muted); margin-bottom:8px; }
+  #map { width:100%; image-rendering:pixelated; border-radius:6px; display:block; }
+  .controls { display:flex; align-items:center; gap:10px; margin-top:10px; }
+  .controls button { background:var(--surface); color:var(--ink); border:1px solid var(--border);
+                     border-radius:8px; padding:5px 14px; font:inherit; cursor:pointer; }
+  .controls button:hover { border-color:var(--muted); }
+  .controls input[type=range] { flex:1; accent-color:var(--s1); }
+  .tickread { font-variant-numeric:tabular-nums; color:var(--ink-2); min-width:86px; text-align:right; }
+  .right { display:flex; flex-direction:column; gap:14px; min-width:0; }
+  .agent { display:flex; align-items:center; gap:10px; padding:6px 0; border-top:1px solid var(--grid); }
+  .agent:first-of-type { border-top:none; }
+  .chip { width:22px; height:22px; border-radius:50%; flex:none; display:flex; align-items:center;
+          justify-content:center; color:#fff; font-size:11px; font-weight:700;
+          box-shadow:0 0 0 2px var(--surface); }
+  .agent .who { min-width:0; flex:1; }
+  .agent .who .nm { font-weight:600; }
+  .agent .who .dr { font-size:11px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .agent .st { text-align:right; font-size:11px; color:var(--ink-2); }
+  .calbar { width:64px; height:4px; background:var(--grid); border-radius:2px; overflow:hidden; margin-top:3px; }
+  .calbar i { display:block; height:100%; background:var(--good); }
+  #chat, #miles { max-height:220px; overflow-y:auto; font-size:12.5px; display:flex; flex-direction:column; gap:5px; }
+  #chat .m { color:var(--ink-2); overflow-wrap:break-word; }
+  #chat .m b { color:var(--ink); font-weight:600; }
+  #chat .dm { opacity:.85; font-style:italic; }
+  #chat .t, #miles .t { color:var(--muted); font-size:10.5px; font-variant-numeric:tabular-nums; margin-right:4px; }
+  #miles div { color:var(--ink-2); }
+  .sparks { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .spark .v { font-size:17px; font-weight:650; }
+  .spark .l { font-size:11px; color:var(--muted); }
+  .spark svg { width:100%; height:34px; display:block; margin-top:2px; }
+  .spark polyline { fill:none; stroke:var(--s1); stroke-width:2; stroke-linejoin:round; stroke-linecap:round; }
+  .proj { font-size:12.5px; color:var(--ink-2); }
+  .proj .row { display:flex; justify-content:space-between; padding:2px 0; }
+  .proj .ok { color:var(--good); font-weight:600; }
+</style>
+</head>
+<body>
+<script>window.RECO_DATA = /*__RECO_DATA__*/null;</script>
+<div class="top">
+  <h1>Reco Replay</h1>
+  <span class="sub" id="runsub"></span>
+  <span class="badge" id="projbadge"></span>
+</div>
+<div class="layout">
+  <div>
+    <div class="panel">
+      <canvas id="map"></canvas>
+      <div class="controls">
+        <button id="play">▶ Play</button>
+        <input type="range" id="scrub" min="0" value="0">
+        <span class="tickread" id="tickread"></span>
+      </div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="panel"><h2>Project</h2><div class="proj" id="proj"></div></div>
+    <div class="panel"><h2>Settlers</h2><div id="agents"></div></div>
+    <div class="panel"><h2>Chat</h2><div id="chat"></div></div>
+    <div class="panel"><h2>Milestones</h2><div id="miles"></div></div>
+    <div class="panel"><h2>Per tick</h2><div class="sparks" id="sparks"></div></div>
+  </div>
+</div>
+<script>
+(function () {
+  const D = window.RECO_DATA;
+  if (!D) { document.body.textContent = "No run data embedded."; return; }
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const SLOTS = ["--s1","--s2","--s3","--s4","--s5","--s6","--s7","--s8"];
+  const agentIds = D.meta.agents.map(a => a.id);
+  const colorOf = {}; agentIds.forEach((id, i) => colorOf[id] = SLOTS[i % SLOTS.length]);
+  const TER = ["--t-plains","--t-forest","--t-mountain","--t-water","--t-desert"];
+  const DEP = { trees:"--d-trees", stone_outcrop:"--d-stone", berry_bush:"--d-berry" };
+
+  const frames = D.frames, W = D.meta.width, H = D.meta.height;
+  let cur = 0, playing = null;
+
+  // header
+  document.getElementById("runsub").textContent =
+    `${D.meta.content} · seed ${D.meta.seed} · ${frames.length} ticks`;
+
+  // agents panel (static part)
+  const agentsEl = document.getElementById("agents");
+  for (const a of D.meta.agents) {
+    const row = document.createElement("div"); row.className = "agent"; row.id = "ag-" + a.id;
+    row.innerHTML =
+      `<div class="chip" data-c="${colorOf[a.id]}">${a.name[0]}</div>` +
+      `<div class="who"><div class="nm">${a.name}</div>` +
+      `<div class="dr">${a.driver}${a.model ? " · " + a.model : ""}${a.role ? " · " + a.role : ""}</div></div>` +
+      `<div class="st"><span class="inv"></span><div class="calbar"><i></i></div></div>`;
+    agentsEl.appendChild(row);
+  }
+
+  const canvas = document.getElementById("map"), ctx = canvas.getContext("2d");
+  const TS = 34; canvas.width = W * TS; canvas.height = H * TS;
+
+  function drawMap(f) {
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+      ctx.fillStyle = css(TER[D.meta.terrain[y][x]] || TER[0]);
+      ctx.fillRect(x*TS, y*TS, TS, TS);
+    }
+    ctx.strokeStyle = css("--grid"); ctx.lineWidth = 1;
+    for (let x = 0; x <= W; x++) { ctx.beginPath(); ctx.moveTo(x*TS+.5,0); ctx.lineTo(x*TS+.5,H*TS); ctx.stroke(); }
+    for (let y = 0; y <= H; y++) { ctx.beginPath(); ctx.moveTo(0,y*TS+.5); ctx.lineTo(W*TS,y*TS+.5); ctx.stroke(); }
+    for (const [key, dep] of Object.entries(f.deposits)) {
+      const [x, y] = key.split(",").map(Number);
+      ctx.fillStyle = css(DEP[dep.kind] || "--muted");
+      const r = 3 + Math.min(4, Math.ceil(dep.qty / 10));
+      ctx.beginPath(); ctx.arc(x*TS+TS/2, y*TS+TS/2, r, 0, 7); ctx.fill();
+    }
+    for (const [key, kind] of Object.entries(f.buildings)) {
+      const [x, y] = key.split(",").map(Number);
+      const cx = x*TS+TS/2, cy = y*TS+TS/2;
+      if (kind === "beacon_site") {
+        ctx.strokeStyle = f.project.complete ? css("--good") : css("--muted");
+        ctx.lineWidth = 2; star(cx, cy, 9, f.project.complete);
+      } else if (kind === "campfire") {
+        ctx.fillStyle = css("--s2");
+        ctx.beginPath(); ctx.moveTo(cx, cy-8); ctx.lineTo(cx+7, cy+6); ctx.lineTo(cx-7, cy+6);
+        ctx.closePath(); ctx.fill();
+      } else {
+        ctx.fillStyle = css("--muted"); ctx.fillRect(cx-6, cy-6, 12, 12);
+      }
+    }
+    const byPos = {};
+    for (const [aid, a] of Object.entries(f.agents)) (byPos[a.pos.join()] ||= []).push(aid);
+    for (const group of Object.values(byPos)) {
+      group.forEach((aid, i) => {
+        const a = f.agents[aid];
+        const cx = a.pos[0]*TS+TS/2 + (i - (group.length-1)/2)*10, cy = a.pos[1]*TS+TS/2;
+        ctx.beginPath(); ctx.arc(cx, cy, 9, 0, 7);
+        ctx.fillStyle = css(colorOf[aid]); ctx.fill();
+        ctx.lineWidth = 2; ctx.strokeStyle = css("--surface"); ctx.stroke();
+        ctx.fillStyle = "#fff"; ctx.font = "bold 10px system-ui";
+        ctx.textAlign = "center"; ctx.textBaseline = "middle";
+        ctx.fillText(D.meta.names[aid][0], cx, cy+.5);
+      });
+    }
+  }
+  function star(cx, cy, r, fill) {
+    ctx.beginPath();
+    for (let i = 0; i < 10; i++) {
+      const rad = i % 2 ? r/2.2 : r, an = -Math.PI/2 + i*Math.PI/5;
+      ctx[i ? "lineTo" : "moveTo"](cx + rad*Math.cos(an), cy + rad*Math.sin(an));
+    }
+    ctx.closePath();
+    if (fill) { ctx.fillStyle = css("--good"); ctx.fill(); } else ctx.stroke();
+  }
+
+  function fmtInv(inv) {
+    const parts = Object.entries(inv).map(([k, v]) => `${k}×${v}`);
+    return parts.length ? parts.join(" ") : "—";
+  }
+
+  function render(i) {
+    cur = i;
+    const f = frames[i];
+    drawMap(f);
+    document.getElementById("scrub").value = i;
+    document.getElementById("tickread").textContent = `tick ${f.tick}`;
+    const badge = document.getElementById("projbadge");
+    badge.textContent = f.project.complete ? "★ BEACON COMPLETE" : "beacon in progress";
+    badge.className = "badge" + (f.project.complete ? " done" : "");
+    for (const [aid, a] of Object.entries(f.agents)) {
+      const row = document.getElementById("ag-" + aid);
+      row.querySelector(".inv").textContent = fmtInv(a.inventory);
+      row.querySelector(".calbar i").style.width = Math.min(100, a.calories/12) + "%";
+    }
+    const proj = document.getElementById("proj");
+    proj.innerHTML = Object.entries(D.meta.project_needs).map(([item, need]) => {
+      const got = f.project.contributed[item] || 0;
+      return `<div class="row"><span>${item}</span><span class="${got >= need ? "ok" : ""}">${got}/${need}</span></div>`;
+    }).join("");
+    const chat = document.getElementById("chat");
+    chat.innerHTML = frames.slice(0, i+1).flatMap(fr => fr.chat.map(c =>
+      `<div class="m ${c.channel === "dm" ? "dm" : ""}"><span class="t">t${fr.tick}</span>` +
+      `<b>${c.from}</b>${c.to ? " → " + c.to : ""}: ${esc(c.text)}</div>`)).join("");
+    chat.scrollTop = chat.scrollHeight;
+    const miles = document.getElementById("miles");
+    miles.innerHTML = frames.slice(0, i+1).flatMap(fr => fr.milestones.map(m =>
+      `<div><span class="t">t${fr.tick}</span>${esc(m)}</div>`)).join("") || "<div>—</div>";
+    miles.scrollTop = miles.scrollHeight;
+    sparks(i);
+  }
+  const esc = s => s.replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+
+  const SPARKS = [["production_value","production"],["chat_count","chat"],["trade_count","trades"]];
+  function sparks(i) {
+    const el = document.getElementById("sparks");
+    el.innerHTML = SPARKS.map(([key, label]) => {
+      const vals = frames.map(f => f.metrics[key] || 0);
+      const max = Math.max(1, ...vals);
+      const pts = vals.map((v, x) =>
+        `${(x/(Math.max(1, vals.length-1))*100).toFixed(1)},${(30 - v/max*26).toFixed(1)}`).join(" ");
+      const cx = (i/Math.max(1, vals.length-1))*100, cyv = vals[i];
+      return `<div class="spark"><div class="v">${cyv}</div><div class="l">${label}</div>` +
+        `<svg viewBox="0 0 100 34" preserveAspectRatio="none"><title>${label} per tick</title>` +
+        `<polyline points="${pts}"/><circle cx="${cx.toFixed(1)}" cy="${(30 - cyv/max*26).toFixed(1)}" r="2.5" fill="var(--s1)"/></svg></div>`;
+    }).join("");
+  }
+
+  const scrub = document.getElementById("scrub");
+  scrub.max = frames.length - 1;
+  scrub.addEventListener("input", () => { stop(); render(+scrub.value); });
+  const playBtn = document.getElementById("play");
+  function stop() { if (playing) { clearInterval(playing); playing = null; playBtn.textContent = "▶ Play"; } }
+  playBtn.addEventListener("click", () => {
+    if (playing) return stop();
+    playBtn.textContent = "❚❚ Pause";
+    if (cur >= frames.length - 1) cur = -1;
+    playing = setInterval(() => {
+      if (cur >= frames.length - 1) return stop();
+      render(cur + 1);
+    }, 900);
+  });
+  document.addEventListener("keydown", e => {
+    if (e.key === "ArrowRight") { stop(); render(Math.min(frames.length-1, cur+1)); }
+    if (e.key === "ArrowLeft") { stop(); render(Math.max(0, cur-1)); }
+    if (e.key === " ") { e.preventDefault(); playBtn.click(); }
+  });
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => render(cur));
+  render(0);
+})();
+</script>
+</body>
+</html>

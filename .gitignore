@@ -1,0 +1,22 @@
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+
+# Local run outputs stay untracked; published results are committed explicitly.
+runs/*
+!runs/campaign1/
+!runs/campaign2/
+!runs/conformance-cli_claude-haiku.json
+!runs/conformance-cli_codex.json
+runs/*/workspaces/
+runs/*.log
+
+# Internal-only material never ships in this repo.
+docs/SESSION-STATUS.md
+docs/superpowers/
+.claude/
+.serena/

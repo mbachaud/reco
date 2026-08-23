@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "reco"
+version = "0.0.1"
+description = "Reco - synthetic civilization benchmark for LLM agents (Eco-inspired, text-only)"
+requires-python = ">=3.12"
+dependencies = [
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+reco = "reco.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["reco*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

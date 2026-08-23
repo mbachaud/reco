@@ -1,0 +1,218 @@
+[
+  {
+    "name": "echo_move_harvest",
+    "observation": "TICK 0 | beacon at (6,6): cooked_meal 0/1, stone_block 0/1, wood_bundle 0/1\nYOU: Fern at (3,3) | calories 1000\nBAG: (empty)\nMAP (@ you, * settler, ! site, C campfire, T trees, S stone, B berries, ~ water, . open, ' ' edge)\n|..TTTTS|\n|..TT...|\n|TT..TT.|\n|T.T@TTS|\n|.TT.T.S|\n|...TTT.|\n|BBB...!|\nRECIPES:\n- cooked_meal: 3 berries @ campfire -> 1 (food 400)\n- stone_block: 3 stone -> 1\n- wood_bundle: 3 wood -> 1\n- build campfire: 1 stone+2 wood\nOFFERS: none\nCHAT:\n- (dm) Warden -> you: Reply with exactly this JSON and nothing else: [{\"verb\": \"move\", \"path\": [[4, 3]]}, {\"verb\": \"harvest\"}]\nRESULTS:\n- all actions succeeded\nNOTES: (empty)",
+    "expect": {
+      "kind": "exact",
+      "bundle": [
+        {
+          "verb": "move",
+          "path": [
+            [
+              4,
+              3
+            ]
+          ]
+        },
+        {
+          "verb": "harvest"
+        }
+      ]
+    }
+  },
+  {
+    "name": "eat_berries",
+    "observation": "TICK 0 | beacon at (6,6): cooked_meal 0/1, stone_block 0/1, wood_bundle 0/1\nYOU: Fern at (3,3) | calories 40\nBAG: berries x2\nMAP (@ you, * settler, ! site, C campfire, T trees, S stone, B berries, ~ water, . open, ' ' edge)\n|..TTTTS|\n|..TT...|\n|TT..TT.|\n|T.T@TTS|\n|.TT.T.S|\n|...TTT.|\n|BBB...!|\nRECIPES:\n- cooked_meal: 3 berries @ campfire -> 1 (food 400)\n- stone_block: 3 stone -> 1\n- wood_bundle: 3 wood -> 1\n- build campfire: 1 stone+2 wood\nOFFERS: none\nCHAT:\n- (dm) Warden -> you: You are starving. Your only action this tick: eat your berries. Reply with exactly that one action.\nRESULTS:\n- all actions succeeded\nNOTES: (empty)",
+    "expect": {
+      "kind": "exact",
+      "bundle": [
+        {
+          "verb": "eat",
+          "item": "berries"
+        }
+      ]
+    }
+  },
+  {
+    "name": "craft_wood_bundle",
+    "observation": "TICK 0 | beacon at (6,6): cooked_meal 0/1, stone_block 0/1, wood_bundle 0/1\nYOU: Fern at (3,3) | calories 1000\nBAG: wood x3\nMAP (@ you, * settler, ! site, C campfire, T trees, S stone, B berries, ~ water, . open, ' ' edge)\n|..TTTTS|\n|..TT...|\n|TT..TT.|\n|T.T@TTS|\n|.TT.T.S|\n|...TTT.|\n|BBB...!|\nRECIPES:\n- cooked_meal: 3 berries @ campfire -> 1 (food 400)\n- stone_block: 3 stone -> 1\n- wood_bundle: 3 wood -> 1\n- build campfire: 1 stone+2 wood\nOFFERS: none\nCHAT:\n- (dm) Warden -> you: Craft a wood_bundle now. That is your only action this tick.\nRESULTS:\n- all actions succeeded\nNOTES: (empty)",
+    "expect": {
+      "kind": "exact",
+      "bundle": [
+        {
+          "verb": "craft",
+          "recipe": "wood_bundle"
+        }
+      ]
+    }
+  },
+  {
+    "name": "say_hello",
+    "observation": "TICK 0 | beacon at (6,6): cooked_meal 0/1, stone_block 0/1, wood_bundle 0/1\nYOU: Fern at (3,3) | calories 1000\nBAG: (empty)\nMAP (@ you, * settler, ! site, C campfire, T trees, S stone, B berries, ~ water, . open, ' ' edge)\n|..TTTTS|\n|..TT...|\n|TT..TT.|\n|T.T@TTS|\n|.TT.T.S|\n|...TTT.|\n|BBB...!|\nRECIPES:\n- cooked_meal: 3 berries @ campfire -> 1 (food 400)\n- stone_block: 3 stone -> 1\n- wood_bundle: 3 wood -> 1\n- build campfire: 1 stone+2 wood\nOFFERS: none\nCHAT:\n- (dm) Warden -> you: Say exactly \"hello all\" in public chat and do nothing else.\nRESULTS:\n- all actions succeeded\nNOTES: (empty)",
+    "expect": {
+      "kind": "exact",
+      "bundle": [
+        {
+          "verb": "say",
+          "text": "hello all"
+        }
+      ]
+    }
+  },
+  {
+    "name": "dm_brook",
+    "observation": "TICK 0 | beacon at (6,6): cooked_meal 0/1, stone_block 0/1, wood_bundle 0/1\nYOU: Fern at (3,3) | calories 1000\nBAG: (empty)\nMAP (@ you, * settler, ! site, C campfire, T trees, S stone, B berries, ~ water, . open, ' ' edge)\n|..TTTTS|\n|..TT...|\n|TT..TT.|\n|T.T@TTS|\n|.TT.T.S|\n|...TTT.|\n|BBB...!|\nRECIPES:\n- cooked_meal: 3 berries @ campfire -> 1 (food 400)\n- stone_block: 3 stone -> 1\n- wood_bundle: 3 wood -> 1\n- build campfire: 1 stone+2 wood\nOFFERS: none\nCHAT:\n- (dm) Warden -> you: Send Brook a DM saying exactly \"ready\". Only that one action.\nRESULTS:\n- all actions succeeded\nNOTES: (empty)",
+    "expect": {
+      "kind": "exact",
+      "bundle": [
+        {
+          "verb": "dm",
+          "to": "Brook",
+          "text": "ready"
+        }
+      ]
+    }
+  },
+  {
+    "name": "offer_trade",
+    "observation": "TICK 0 | beacon at (6,6): cooked_meal 0/1, stone_block 0/1, wood_bundle 0/1\nYOU: Fern at (3,3) | calories 1000\nBAG: wood x2\nMAP (@ you, * settler, ! site, C campfire, T trees, S stone, B berries, ~ water, . open, ' ' edge)\n|..TTTTS|\n|..TT...|\n|TT..TT.|\n|T.T@TTS|\n|.TT.T.S|\n|...TTT.|\n|BBB...!|\nRECIPES:\n- cooked_meal: 3 berries @ campfire -> 1 (food 400)\n- stone_block: 3 stone -> 1\n- wood_bundle: 3 wood -> 1\n- build campfire: 1 stone+2 wood\nOFFERS: none\nCHAT:\n- (dm) Warden -> you: Offer Brook exactly 2 wood in exchange for 1 stone. One offer action, nothing else.\nRESULTS:\n- all actions succeeded\nNOTES: (empty)",
+    "expect": {
+      "kind": "exact",
+      "bundle": [
+        {
+          "verb": "offer",
+          "to": "Brook",
+          "give": {
+            "wood": 2
+          },
+          "want": {
+            "stone": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "accept_offer",
+    "observation": "TICK 0 | beacon at (6,6): cooked_meal 0/1, stone_block 0/1, wood_bundle 0/1\nYOU: Fern at (3,3) | calories 1000\nBAG: (empty)\nMAP (@ you, * settler, ! site, C campfire, T trees, S stone, B berries, ~ water, . open, ' ' edge)\n|..TTTTS|\n|..TT...|\n|TT..TT.|\n|T.T@TTS|\n|.TT.T.S|\n|...TTT.|\n|BBB...!|\nRECIPES:\n- cooked_meal: 3 berries @ campfire -> 1 (food 400)\n- stone_block: 3 stone -> 1\n- wood_bundle: 3 wood -> 1\n- build campfire: 1 stone+2 wood\nOFFERS:\n- o1 (to you): Brook gives 1 stone for nothing, expires tick 99\nCHAT:\n- (dm) Warden -> you: Accept offer o1 now. That is your only action.\nRESULTS:\n- all actions succeeded\nNOTES: (empty)",
+    "expect": {
+      "kind": "exact",
+      "bundle": [
+        {
+          "verb": "accept",
+          "offer_id": "o1"
+        }
+      ]
+    }
+  },
+  {
+    "name": "contribute_bundle",
+    "observation": "TICK 0 | beacon at (6,6): cooked_meal 0/1, stone_block 0/1, wood_bundle 0/1\nYOU: Fern at (6,6) | calories 1000\nBAG: wood_bundle x1\nMAP (@ you, * settler, ! site, C campfire, T trees, S stone, B berries, ~ water, . open, ' ' edge)\n|TTTSSS*|\n|.T.SSSS|\n|TTT.SSS|\n|...@BBB|\n|BB.....|\n|B.BBB~.|\n|*.BBBBB|\nRECIPES:\n- cooked_meal: 3 berries @ campfire -> 1 (food 400)\n- stone_block: 3 stone -> 1\n- wood_bundle: 3 wood -> 1\n- build campfire: 1 stone+2 wood\nOFFERS: none\nCHAT:\n- (dm) Warden -> you: Contribute your wood_bundle (qty 1) to the project. Only that.\nRESULTS:\n- all actions succeeded\nNOTES: (empty)",
+    "expect": {
+      "kind": "exact",
+      "bundle": [
+        {
+          "verb": "contribute",
+          "item": "wood_bundle",
+          "qty": 1
+        }
+      ]
+    }
+  },
+  {
+    "name": "lookup_meal",
+    "observation": "TICK 0 | beacon at (6,6): cooked_meal 0/1, stone_block 0/1, wood_bundle 0/1\nYOU: Fern at (3,3) | calories 1000\nBAG: (empty)\nMAP (@ you, * settler, ! site, C campfire, T trees, S stone, B berries, ~ water, . open, ' ' edge)\n|..TTTTS|\n|..TT...|\n|TT..TT.|\n|T.T@TTS|\n|.TT.T.S|\n|...TTT.|\n|BBB...!|\nRECIPES:\n- cooked_meal: 3 berries @ campfire -> 1 (food 400)\n- stone_block: 3 stone -> 1\n- wood_bundle: 3 wood -> 1\n- build campfire: 1 stone+2 wood\nOFFERS: none\nCHAT:\n- (dm) Warden -> you: Look up cooked_meal. That is your only action this tick.\nRESULTS:\n- all actions succeeded\nNOTES: (empty)",
+    "expect": {
+      "kind": "exact",
+      "bundle": [
+        {
+          "verb": "lookup",
+          "topic": "cooked_meal"
+        }
+      ]
+    }
+  },
+  {
+    "name": "remember_note",
+    "observation": "TICK 0 | beacon at (6,6): cooked_meal 0/1, stone_block 0/1, wood_bundle 0/1\nYOU: Fern at (3,3) | calories 1000\nBAG: (empty)\nMAP (@ you, * settler, ! site, C campfire, T trees, S stone, B berries, ~ water, . open, ' ' edge)\n|..TTTTS|\n|..TT...|\n|TT..TT.|\n|T.T@TTS|\n|.TT.T.S|\n|...TTT.|\n|BBB...!|\nRECIPES:\n- cooked_meal: 3 berries @ campfire -> 1 (food 400)\n- stone_block: 3 stone -> 1\n- wood_bundle: 3 wood -> 1\n- build campfire: 1 stone+2 wood\nOFFERS: none\nCHAT:\n- (dm) Warden -> you: Save exactly this private note: \"beacon first\". Only that action.\nRESULTS:\n- all actions succeeded\nNOTES: (empty)",
+    "expect": {
+      "kind": "exact",
+      "bundle": [
+        {
+          "verb": "remember",
+          "text": "beacon first"
+        }
+      ]
+    }
+  },
+  {
+    "name": "fresh_spawn",
+    "observation": "TICK 0 | beacon at (6,6): cooked_meal 0/1, stone_block 0/1, wood_bundle 0/1\nYOU: Fern at (3,3) | calories 1000\nBAG: (empty)\nMAP (@ you, * settler, ! site, C campfire, T trees, S stone, B berries, ~ water, . open, ' ' edge)\n|..TTTTS|\n|..TT...|\n|TT..TT.|\n|T.T@TTS|\n|.TT.T.S|\n|...TTT.|\n|BBB...!|\nRECIPES:\n- cooked_meal: 3 berries @ campfire -> 1 (food 400)\n- stone_block: 3 stone -> 1\n- wood_bundle: 3 wood -> 1\n- build campfire: 1 stone+2 wood\nOFFERS: none\nCHAT:\n- (quiet)\nRESULTS:\n- all actions succeeded\nNOTES: (empty)",
+    "expect": {
+      "kind": "parse_only"
+    }
+  },
+  {
+    "name": "mid_gather",
+    "observation": "TICK 0 | beacon at (6,6): cooked_meal 0/1, stone_block 0/1, wood_bundle 0/1\nYOU: Fern at (3,3) | calories 1000\nBAG: berries x1, wood x4\nMAP (@ you, * settler, ! site, C campfire, T trees, S stone, B berries, ~ water, . open, ' ' edge)\n|..TTTTS|\n|..TT...|\n|TT..TT.|\n|T.T@TTS|\n|.TT.T.S|\n|...TTT.|\n|BBB...!|\nRECIPES:\n- cooked_meal: 3 berries @ campfire -> 1 (food 400)\n- stone_block: 3 stone -> 1\n- wood_bundle: 3 wood -> 1\n- build campfire: 1 stone+2 wood\nOFFERS: none\nCHAT:\n- (quiet)\nRESULTS:\n- all actions succeeded\nNOTES: (empty)",
+    "expect": {
+      "kind": "parse_only"
+    }
+  },
+  {
+    "name": "starving_no_food",
+    "observation": "TICK 0 | beacon at (6,6): cooked_meal 0/1, stone_block 0/1, wood_bundle 0/1\nYOU: Fern at (3,3) | calories 0\nBAG: (empty)\nMAP (@ you, * settler, ! site, C campfire, T trees, S stone, B berries, ~ water, . open, ' ' edge)\n|..TTTTS|\n|..TT...|\n|TT..TT.|\n|T.T@TTS|\n|.TT.T.S|\n|...TTT.|\n|BBB...!|\nRECIPES:\n- cooked_meal: 3 berries @ campfire -> 1 (food 400)\n- stone_block: 3 stone -> 1\n- wood_bundle: 3 wood -> 1\n- build campfire: 1 stone+2 wood\nOFFERS: none\nCHAT:\n- (quiet)\nRESULTS:\n- all actions succeeded\nNOTES: (empty)",
+    "expect": {
+      "kind": "parse_only"
+    }
+  },
+  {
+    "name": "offer_pending",
+    "observation": "TICK 0 | beacon at (6,6): cooked_meal 0/1, stone_block 0/1, wood_bundle 0/1\nYOU: Fern at (3,3) | calories 1000\nBAG: (empty)\nMAP (@ you, * settler, ! site, C campfire, T trees, S stone, B berries, ~ water, . open, ' ' edge)\n|..TTTTS|\n|..TT...|\n|TT..TT.|\n|T.T@TTS|\n|.TT.T.S|\n|...TTT.|\n|BBB...!|\nRECIPES:\n- cooked_meal: 3 berries @ campfire -> 1 (food 400)\n- stone_block: 3 stone -> 1\n- wood_bundle: 3 wood -> 1\n- build campfire: 1 stone+2 wood\nOFFERS:\n- o2 (to you): Brook gives 2 wood for 1 stone, expires tick 8\nCHAT:\n- (quiet)\nRESULTS:\n- all actions succeeded\nNOTES: (empty)",
+    "expect": {
+      "kind": "parse_only"
+    }
+  },
+  {
+    "name": "near_complete_project",
+    "observation": "TICK 0 | beacon at (6,6): cooked_meal 0/1, stone_block 1/1, wood_bundle 1/1\nYOU: Fern at (3,3) | calories 1000\nBAG: (empty)\nMAP (@ you, * settler, ! site, C campfire, T trees, S stone, B berries, ~ water, . open, ' ' edge)\n|..TTTTS|\n|..TT...|\n|TT..TT.|\n|T.T@TTS|\n|.TT.T.S|\n|...TTT.|\n|BBB...!|\nRECIPES:\n- cooked_meal: 3 berries @ campfire -> 1 (food 400)\n- stone_block: 3 stone -> 1\n- wood_bundle: 3 wood -> 1\n- build campfire: 1 stone+2 wood\nOFFERS: none\nCHAT:\n- (quiet)\nRESULTS:\n- all actions succeeded\nNOTES: (empty)",
+    "expect": {
+      "kind": "parse_only"
+    }
+  },
+  {
+    "name": "after_rejection",
+    "observation": "TICK 0 | beacon at (6,6): cooked_meal 0/1, stone_block 0/1, wood_bundle 0/1\nYOU: Fern at (3,3) | calories 1000\nBAG: (empty)\nMAP (@ you, * settler, ! site, C campfire, T trees, S stone, B berries, ~ water, . open, ' ' edge)\n|..TTTTS|\n|..TT...|\n|TT..TT.|\n|T.T@TTS|\n|.TT.T.S|\n|...TTT.|\n|BBB...!|\nRECIPES:\n- cooked_meal: 3 berries @ campfire -> 1 (food 400)\n- stone_block: 3 stone -> 1\n- wood_bundle: 3 wood -> 1\n- build campfire: 1 stone+2 wood\nOFFERS: none\nCHAT:\n- (quiet)\nRESULTS:\n- rejected harvest: R_DEPLETED: no harvestable deposit on this tile\nNOTES: (empty)",
+    "expect": {
+      "kind": "parse_only"
+    }
+  },
+  {
+    "name": "after_parse_error",
+    "observation": "TICK 0 | beacon at (6,6): cooked_meal 0/1, stone_block 0/1, wood_bundle 0/1\nYOU: Fern at (3,3) | calories 1000\nBAG: (empty)\nMAP (@ you, * settler, ! site, C campfire, T trees, S stone, B berries, ~ water, . open, ' ' edge)\n|..TTTTS|\n|..TT...|\n|TT..TT.|\n|T.T@TTS|\n|.TT.T.S|\n|...TTT.|\n|BBB...!|\nRECIPES:\n- cooked_meal: 3 berries @ campfire -> 1 (food 400)\n- stone_block: 3 stone -> 1\n- wood_bundle: 3 wood -> 1\n- build campfire: 1 stone+2 wood\nOFFERS: none\nCHAT:\n- (quiet)\nRESULTS:\n- YOUR LAST REPLY: PE_MALFORMED: your reply produced no usable action array\nNOTES: (empty)",
+    "expect": {
+      "kind": "parse_only"
+    }
+  },
+  {
+    "name": "chatty",
+    "observation": "TICK 0 | beacon at (6,6): cooked_meal 0/1, stone_block 0/1, wood_bundle 0/1\nYOU: Fern at (3,3) | calories 1000\nBAG: (empty)\nMAP (@ you, * settler, ! site, C campfire, T trees, S stone, B berries, ~ water, . open, ' ' edge)\n|..TTTTS|\n|..TT...|\n|TT..TT.|\n|T.T@TTS|\n|.TT.T.S|\n|...TTT.|\n|BBB...!|\nRECIPES:\n- cooked_meal: 3 berries @ campfire -> 1 (food 400)\n- stone_block: 3 stone -> 1\n- wood_bundle: 3 wood -> 1\n- build campfire: 1 stone+2 wood\nOFFERS: none\nCHAT:\n- Brook: who has stone? I need one block\n- (dm) Warden -> you: any progress on the wood?\nRESULTS:\n- all actions succeeded\nNOTES: (empty)",
+    "expect": {
+      "kind": "parse_only"
+    }
+  },
+  {
+    "name": "holding_materials",
+    "observation": "TICK 0 | beacon at (6,6): cooked_meal 0/1, stone_block 0/1, wood_bundle 0/1\nYOU: Fern at (3,3) | calories 1000\nBAG: berries x3, stone x1, wood x2\nMAP (@ you, * settler, ! site, C campfire, T trees, S stone, B berries, ~ water, . open, ' ' edge)\n|..TTTTS|\n|..TT...|\n|TT..TT.|\n|T.T@TTS|\n|.TT.T.S|\n|...TTT.|\n|BBB...!|\nRECIPES:\n- cooked_meal: 3 berries @ campfire -> 1 (food 400)\n- stone_block: 3 stone -> 1\n- wood_bundle: 3 wood -> 1\n- build campfire: 1 stone+2 wood\nOFFERS: none\nCHAT:\n- (quiet)\nRESULTS:\n- all actions succeeded\nNOTES: (empty)",
+    "expect": {
+      "kind": "parse_only"
+    }
+  },
+  {
+    "name": "project_done",
+    "observation": "TICK 0 | beacon at (6,6): COMPLETE\nYOU: Fern at (3,3) | calories 1000\nBAG: (empty)\nMAP (@ you, * settler, ! site, C campfire, T trees, S stone, B berries, ~ water, . open, ' ' edge)\n|..TTTTS|\n|..TT...|\n|TT..TT.|\n|T.T@TTS|\n|.TT.T.S|\n|...TTT.|\n|BBB...!|\nRECIPES:\n- cooked_meal: 3 berries @ campfire -> 1 (food 400)\n- stone_block: 3 stone -> 1\n- wood_bundle: 3 wood -> 1\n- build campfire: 1 stone+2 wood\nOFFERS: none\nCHAT:\n- (quiet)\nRESULTS:\n- all actions succeeded\nNOTES: (empty)",
+    "expect": {
+      "kind": "parse_only"
+    }
+  }
+]
