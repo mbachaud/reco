@@ -86,10 +86,10 @@ python -m reco.cli conformance --driver cli_claude --model claude-haiku-4-5-2025
 
 Licensed under the [Apache License 2.0](LICENSE). See [NOTICE](NOTICE).
 
-Reco is an independent project inspired by the general systems of the game
-*Eco*. It is not affiliated with or endorsed by Strange Loop Games, and it
-contains no code, data, or assets from *Eco*. Its ruleset, item data, and
-balance numbers are original.
+Reco is an independent project and is not affiliated with or endorsed by
+Strange Loop Games. Its premise and general systems, including the meteor
+deadline, tech progression, and professions, are inspired by the game *Eco*.
+Its code, item data, and balance numbers were written for this project.
 
 Run artifacts under `runs/` include raw responses from third-party models. The
 license covers them only to the extent this project holds rights in them, and
