@@ -81,3 +81,16 @@ python -m reco.cli conformance --driver cli_claude --model claude-haiku-4-5-2025
 - `docs/log-and-hashing.md` — canonical hashing, journal, chained commits, replay
 - `docs/scripted-provisioner.md` — the deterministic scripted worker used as a
   baseline and support role in both campaigns
+
+## License
+
+Licensed under the [Apache License 2.0](LICENSE). See [NOTICE](NOTICE).
+
+Reco is an independent project inspired by the general systems of the game
+*Eco*. It is not affiliated with or endorsed by Strange Loop Games, and it
+contains no code, data, or assets from *Eco*. Its ruleset, item data, and
+balance numbers are original.
+
+Run artifacts under `runs/` include raw responses from third-party models. The
+license covers them only to the extent this project holds rights in them, and
+the model providers' terms may also apply.
